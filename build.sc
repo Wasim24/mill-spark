@@ -10,7 +10,7 @@ object `mill-cross-spark` extends ScalaModule with PublishModule {
     ivy"com.lihaoyi::mill-scalalib:${millVersion}"
   )
 
-  def publishVersion = "0.1.0-SNAPSHOT"
+  def publishVersion = "0.1.0"
 
   def artifactName = "mill-cross-spark"
 
