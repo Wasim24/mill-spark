@@ -1,6 +1,7 @@
 package com.nikvanderhoof.mill
 
 import mill._, scalalib._
+import mill.moduledefs.Cacher
 import mill.eval.PathRef
 
 
@@ -17,10 +18,22 @@ object CrossBase {
     }.map(xs => PathRef(f(xs.mkString("__"))))
 }
 
-trait CrossScalaSparkModule extends ScalaModule {
+trait SparkModule { self: ScalaModule =>
+  implicit class SparkDepSyntax(ctx: StringContext) extends Cacher {
+    def spark(args: Any*) = T {
+      Dep.parse(
+        s"org.apache.spark::spark-${ctx.parts.mkString}:${sparkVersion()}"
+      )
+    }
+  }
+  def sparkVersion: T[String]
+}
+
+trait CrossScalaSparkModule extends ScalaModule with SparkModule {
   def crossScalaVersion: String
   def crossSparkVersion: String
   def scalaVersion = crossScalaVersion
+  def sparkVersion = crossSparkVersion
   override def millSourcePath = super.millSourcePath / ammonite.ops.up / ammonite.ops.up
   override def sources = T.sources {
     super.sources() ++

@@ -1,4 +1,4 @@
-# mill-cross-spark
+# mill-spark
 
 Build projects against multiple versions of Spark and Scala!
 
@@ -12,7 +12,7 @@ of Scala and Spark:
 
 ```scala
 import mill._, scalalib._
-import $ivy.`com.nikvanderhoof::mill-cross-spark:0.1.0`
+import $ivy.`com.nikvanderhoof::mill-spark:0.1.0`
 import com.nikvanderhoof.mill._
 
 val buildMatrix = for {
