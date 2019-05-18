@@ -19,14 +19,12 @@ object CrossBase {
 }
 
 trait SparkModule { self: ScalaModule =>
-  implicit class SparkDepSyntax(ctx: StringContext) extends Cacher {
-    def spark(args: Any*) = T {
-      Dep.parse(
-        s"org.apache.spark::spark-${ctx.parts.mkString}:${sparkVersion()}"
-      )
-    }
+  implicit class SparkDepSyntax(ctx: StringContext) {
+    def spark(args: Any*) = Dep.parse(
+      s"org.apache.spark::spark-${ctx.parts.mkString}:${sparkVersion}"
+    )
   }
-  def sparkVersion: T[String]
+  def sparkVersion: String
 }
 
 trait CrossScalaSparkModule extends ScalaModule with SparkModule {

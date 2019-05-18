@@ -24,9 +24,7 @@ val buildMatrix = for {
 object foo extends Cross[FooModule](buildMatrix: _*)
 class FooModule(val crossScalaVersion: String, val crossSparkVersion: String)
 extends CrossScalaSparkModule {
-  def ivyDeps = Agg(
-    ivy"org.apache.spark::spark-sql:${crossSparkVersion}"
-  )
+  def ivyDeps = Agg(spark"sql")  // this is shorthand for ivy"org.apache.spark::spark-sql:${crossSparkVersion}"
 }
 ```
 
